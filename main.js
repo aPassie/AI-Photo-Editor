@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
   updateSliderValues();
   initializeTheme();
+  initializeVoiceRecognition();
+
 });
 
 /**
@@ -233,6 +235,81 @@ function setupEventListeners() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   });
+}
+
+/**
+ * Initialize and manage voice recognition
+ */
+function initializeVoiceRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    console.warn('Voice recognition not supported in this browser.');
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.continuous = false; // Listen only for single commands
+  recognition.lang = 'en-US'; // Set the language
+
+  recognition.onstart = () => {
+    console.log('Voice recognition started');
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript.toLowerCase();
+    console.log('Voice command:', transcript);
+    processVoiceCommand(transcript);
+  };
+
+  recognition.onerror = (event) => {
+    console.error('Voice recognition error:', event.error);
+  };
+
+  recognition.onend = () => {
+    console.log('Voice recognition ended');
+  };
+
+  // Start listening for voice commands when a specific button is clicked
+  const voiceRecognitionBtn = document.getElementById('voiceRecognitionBtn');
+  voiceRecognitionBtn.addEventListener('click', () => {
+    recognition.start();
+  });
+
+  
+
+  /**
+   * Process the voice command and trigger the corresponding action
+   * @param {string} command - The voice command
+   */
+  function processVoiceCommand(command) {
+    if (!editor.currentImage) {
+      alert('Please upload an image first');
+      return;
+    }
+    if (command.includes('brighten')) {
+      editor.setAdjustment('brightness', 50);
+      updateSliderValues();
+    } else if (command.includes('darken')) {
+      editor.setAdjustment('brightness', -50);
+      updateSliderValues();
+    } else if (command.includes('crop')) {
+      const cropPopup = document.getElementById('cropPopup');
+      cropPopup.classList.add('active');
+      editor.initCrop();
+    } else if (command.includes('colorize')) {
+      editor.applyFilter('sepia', 1);
+      updateFilterSelection('sepia');
+    } else if (command.includes('reset')) {
+      editor.reset();
+      updateSliderValues();
+      updateFilterSelection('none');
+    } else {
+      const feedback = document.getElementById('voiceCommandFeedback');
+      if (feedback) {
+        feedback.textContent = 'Command not recognized';
+      }
+    }
+  }
 }
 
 /**
