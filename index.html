@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Photo Editor</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <label class="switch" id="themeToggle">
+      <input type="checkbox">
+      <span class="slider"></span>
+    </label>
+    
+    <header class="main-header">
+      <h1 class="title">Welcome To AI Photo Editor -- Parth Sankhla</h1>
+    </header>
+
+    <div class="main-layout">
+      <div class="upload-section">
+        <div class="tool-group">
+          <button type="button" class="upload-button button" id="uploadBtn">
+            <span class="button__text">Upload</span>
+            <span class="button__icon">
+              <svg class="svg" data-name="Layer 2" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5,2.187a1.249,1.249,0,0,1,1.25,1.25V22.131a1.25,1.25,0,0,1-2.5,0V3.437A1.249,1.249,0,0,1,17.5,2.187Z"></path>
+                <path d="M17.5,12.437a3.189,3.189,0,0,1,2.262.936l6.751,6.751a1.249,1.249,0,0,1-1.767,1.767l-6.751-6.751a.7.7,0,0,0-.99,0L10.254,21.89a1.25,1.25,0,0,1-1.768-1.767l6.752-6.751A3.191,3.191,0,0,1,17.5,12.437Z"></path>
+                <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+              </svg>
+            </span>
+          </button>
+          <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+        </div>
+      </div>
+
+      <div class="editor-layout">
+        <div class="left-panel">
+          <div class="tool-group">
+            <h3>Filters</h3>
+            <div class="filter-options">
+              <button class="button-28 filter-option" data-filter="none" role="button">
+                None
+              </button>
+              <button class="button-28 filter-option" data-filter="grayscale" role="button">
+                B&W
+                <div class="filter-slider-container">
+                  <input type="range" class="filter-slider" data-filter="grayscale" min="0" max="100" value="100">
+                  <span class="filter-slider-value">100%</span>
+                </div>
+              </button>
+              <button class="button-28 filter-option" data-filter="sepia" role="button">
+                Sepia
+                <div class="filter-slider-container">
+                  <input type="range" class="filter-slider" data-filter="sepia" min="0" max="100" value="100">
+                  <span class="filter-slider-value">100%</span>
+                </div>
+              </button>
+              <button class="button-28 filter-option" data-filter="invert" role="button">
+                Invert
+                <div class="filter-slider-container">
+                  <input type="range" class="filter-slider" data-filter="invert" min="0" max="100" value="100">
+                  <span class="filter-slider-value">100%</span>
+                </div>
+              </button>
+              <button class="button-28 filter-option" data-filter="blur" role="button">
+                Blur
+                <div class="filter-slider-container">
+                  <input type="range" class="filter-slider" data-filter="blur" min="0" max="20" value="10">
+                  <span class="filter-slider-value">10px</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div class="tool-group">
+            <h3>Adjustments</h3>
+            <div class="adjustment-controls">
+              <div class="slider-container">
+                <label for="brightness">Brightness</label>
+                <span class="slider-value">0</span>
+                <input type="range" id="brightness" min="-100" max="100" value="0">
+              </div>
+              
+              <div class="slider-container">
+                <label for="contrast">Contrast</label>
+                <span class="slider-value">0</span>
+                <input type="range" id="contrast" min="-100" max="100" value="0">
+              </div>
+              
+              <div class="slider-container">
+                <label for="saturation">Saturation</label>
+                <span class="slider-value">0</span>
+                <input type="range" id="saturation" min="-100" max="100" value="0">
+              </div>
+
+              <div class="slider-container">
+                <label for="exposure">Exposure</label>
+                <span class="slider-value">0</span>
+                <input type="range" id="exposure" min="-100" max="100" value="0">
+              </div>
+
+              <div class="slider-container">
+                <label for="sharpness">Sharpness</label>
+                <span class="slider-value">0</span>
+                <input type="range" id="sharpness" min="0" max="100" value="0">
+              </div>
+
+              <div class="slider-container">
+                <label for="temperature">Temperature</label>
+                <span class="slider-value">0</span>
+                <input type="range" id="temperature" min="-100" max="100" value="0">
+              </div>
+
+              <div class="slider-container">
+                <label for="tint">Tint</label>
+                <span class="slider-value">0</span>
+                <input type="range" id="tint" min="-100" max="100" value="0">
+              </div>
+
+              <div class="slider-container">
+                <label for="vignette">Vignette</label>
+                <span class="slider-value">0</span>
+                <input type="range" id="vignette" min="0" max="100" value="0">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-wrapper">
+          <div class="canvas-container">
+            <div class="upload-prompt" id="uploadPrompt">
+              <p>Upload an image to start editing</p>
+            </div>
+            <canvas id="canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="download-section">
+          <div class="tool-group">
+            <button type="button" class="download-button button" id="downloadBtn">
+              <span class="button__text">Download</span>
+              <span class="button__icon">
+                <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                  <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                  <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <div class="tool-group">
+            <button id="removeBackground">
+              <span class="button_top">
+                <i class="fas fa-eraser"></i> Remove Background
+              </span>
+            </button>
+            <button id="cropBtn">
+              <span class="button_top">
+                <i class="fas fa-crop"></i> Crop Image
+              </span>
+            </button>
+            <button id="rotateClockwise">
+              <span class="button_top">
+                <i class="fas fa-redo"></i> Rotate Right
+              </span>
+            </button>
+            <button id="rotateAnticlockwise">
+              <span class="button_top">
+                <i class="fas fa-undo"></i> Rotate Left
+              </span>
+            </button>
+            <button id="flipHorizontal">
+              <span class="button_top">
+                <i class="fas fa-arrows-alt-h"></i> Flip Horizontal
+              </span>
+            </button>
+            <button id="flipVertical">
+              <span class="button_top">
+                <i class="fas fa-arrows-alt-v"></i> Flip Vertical
+              </span>
+            </button>
+            <button id="undoBtn">
+              <span class="button_top">
+                <i class="fas fa-undo"></i> Undo
+              </span>
+            </button>
+            <button id="reset">
+              <span class="button_top">
+                <i class="fas fa-sync-alt"></i> Reset
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crop-popup" id="cropPopup">
+      <div class="crop-popup-content">
+        <div class="crop-container">
+          <div class="crop-preview">
+            <div class="canvas-wrapper">
+              <canvas id="cropCanvas"></canvas>
+              <div class="crop-overlay"></div>
+            </div>
+          </div>
+          <div class="crop-controls">
+            <h3>Crop Settings</h3>
+            <div class="aspect-ratio-controls">
+              <h4>Aspect Ratio</h4>
+              <button class="aspect-ratio-btn" data-ratio="free">
+                <span class="button_top">Free</span>
+              </button>
+              <button class="aspect-ratio-btn" data-ratio="1:1">
+                <span class="button_top">1:1</span>
+              </button>
+              <button class="aspect-ratio-btn" data-ratio="4:3">
+                <span class="button_top">4:3</span>
+              </button>
+              <button class="aspect-ratio-btn" data-ratio="16:9">
+                <span class="button_top">16:9</span>
+              </button>
+            </div>
+            <div class="crop-actions">
+              <button id="applyCrop" class="primary-btn">
+                <span class="button_top">Apply</span>
+              </button>
+              <button id="closeCrop">
+                <span class="button_top">Cancel</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="imageEditor.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
