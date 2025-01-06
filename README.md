@@ -98,10 +98,6 @@ AI-Photo-Editor/
 - Real-time image processing
 - Event-driven user interactions
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 👤 Author
 
 **Parth Sankhla**
