@@ -67,7 +67,6 @@ export class ImageEditor {
     this.ctx.putImageData(filteredData, 0, 0);
   }
 
-  // Add the missing setFilter method
   setFilter(filterName) {
     if (filters[filterName]) {
       this.adjustments.currentFilter = filterName;

@@ -227,14 +227,11 @@ function setupEventListeners() {
 function initializeTheme() {
   const themeToggle = document.getElementById('themeToggle').querySelector('input');
   
-  // Check if there's a saved theme preference, default to dark
   const savedTheme = localStorage.getItem('theme') || 'dark';
   
-  // Apply the saved theme
   document.documentElement.setAttribute('data-theme', savedTheme);
   themeToggle.checked = savedTheme === 'light'; 
   
-  // Add theme toggle listener
   themeToggle.addEventListener('change', () => {
     const newTheme = themeToggle.checked ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
@@ -266,9 +263,7 @@ function applyFilter(filterName, value) {
 function updateSliderValues() {
   const sliders = document.querySelectorAll('input[type="range"]');
   sliders.forEach(slider => {
-    // Set default values based on slider type
     if (slider.classList.contains('filter-slider')) {
-      // Filter sliders
       const defaultValue = slider.id === 'blur' ? 0 : 100;
       slider.value = defaultValue;
       const valueDisplay = slider.nextElementSibling;
@@ -276,7 +271,6 @@ function updateSliderValues() {
         valueDisplay.textContent = slider.id === 'blur' ? '0px' : '100%';
       }
     } else {
-      // Adjustment sliders
       slider.value = 0;
       const valueDisplay = slider.parentElement.querySelector('.slider-value');
       if (valueDisplay) {

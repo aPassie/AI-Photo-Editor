@@ -1,19 +1,20 @@
-import { applyBrightness } from './adjustments/brightness';
-import { applyContrast } from './adjustments/contrast';
-import { applySaturation } from './adjustments/saturation';
+import { applyAllAdjustments } from './imageAdjustments';
 import { clampColor } from './color';
 
 export function processImageData(imageData, adjustments) {
   const data = imageData.data;
   
   for (let i = 0; i < data.length; i += 4) {
-    let { r, g, b } = applyBrightness(data[i], data[i + 1], data[i + 2], adjustments.brightness);
-    ({ r, g, b } = applyContrast(r, g, b, adjustments.contrast));
-    ({ r, g, b } = applySaturation(r, g, b, adjustments.saturation));
+    const { r, g, b } = applyAllAdjustments(
+      data[i], 
+      data[i + 1], 
+      data[i + 2], 
+      adjustments
+    );
     
-    data[i] = clampColor(r);
-    data[i + 1] = clampColor(g);
-    data[i + 2] = clampColor(b);
+    data[i] = r;     // No need for clampColor since applyAllAdjustments already clamps
+    data[i + 1] = g;
+    data[i + 2] = b;
   }
   
   return imageData;

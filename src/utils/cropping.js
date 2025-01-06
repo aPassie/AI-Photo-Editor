@@ -33,7 +33,6 @@ export class CropTool {
     this.overlay.appendChild(this.cropArea);
     this.canvas.parentElement.appendChild(this.overlay);
     
-    // Add resize handles
     const positions = ['nw', 'ne', 'sw', 'se'];
     positions.forEach(pos => {
       const handle = document.createElement('div');
