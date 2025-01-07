@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Meta Information -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Photo Editor</title>
+
+    <!-- External Stylesheets
+         - Satoshi font from Fontshare
+         - Cropper.js CSS for image cropping
+         - Font Awesome for icons
+         - Custom styles -->
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <!-- Theme Toggle Switch -->
     <label class="switch" id="themeToggle">
       <input type="checkbox">
       <span class="slider"></span>
     </label>
     
+    <!-- Header Section -->
     <header class="main-header">
       <h1 class="title">Welcome To AI Photo Editor -- Parth Sankhla</h1>
     </header>
 
+    <!-- Main Layout Container -->
     <div class="main-layout">
+      <!-- Upload Section -->
       <div class="upload-section">
         <div class="tool-group">
           <button type="button" class="upload-button button" id="uploadBtn">
             <span class="button__text">Upload</span>
             <span class="button__icon">
+              <!-- SVG Upload Icon -->
               <svg class="svg" data-name="Layer 2" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.5,2.187a1.249,1.249,0,0,1,1.25,1.25V22.131a1.25,1.25,0,0,1-2.5,0V3.437A1.249,1.249,0,0,1,17.5,2.187Z"></path>
                 <path d="M17.5,12.437a3.189,3.189,0,0,1,2.262.936l6.751,6.751a1.249,1.249,0,0,1-1.767,1.767l-6.751-6.751a.7.7,0,0,0-.99,0L10.254,21.89a1.25,1.25,0,0,1-1.768-1.767l6.752-6.751A3.191,3.191,0,0,1,17.5,12.437Z"></path>
@@ -36,8 +48,11 @@
         </div>
       </div>
 
+      <!-- Editor Layout Grid -->
       <div class="editor-layout">
+        <!-- Left Panel - Filters and Adjustments -->
         <div class="left-panel">
+          <!-- Filter Controls -->
           <div class="tool-group">
             <h3>Filters</h3>
             <div class="filter-options">
@@ -75,6 +90,7 @@
             </div>
           </div>
 
+          <!-- Image Adjustment Controls -->
           <div class="tool-group">
             <h3>Adjustments</h3>
             <div class="adjustment-controls">
@@ -131,13 +147,16 @@
 
         <div class="canvas-wrapper">
           <div class="canvas-container">
+            <!-- Upload Prompt -->
             <div class="upload-prompt" id="uploadPrompt">
               <p>Upload an image to start editing</p>
             </div>
+            <!-- Main Canvas -->
             <canvas id="canvas"></canvas>
           </div>
         </div>
 
+        <!-- Download Section -->
         <div class="download-section">
           <div class="tool-group">
             <button type="button" class="download-button button" id="downloadBtn">
@@ -153,6 +172,7 @@
           </div>
         </div>
 
+        <!-- Right Panel - Image Operations -->
         <div class="right-panel">
           <div class="tool-group">
             <button id="removeBackground">
@@ -200,17 +220,21 @@
       </div>
     </div>
 
+    <!-- Crop Popup Dialog -->
     <div class="crop-popup" id="cropPopup">
       <div class="crop-popup-content">
         <div class="crop-container">
+          <!-- Crop Preview Area -->
           <div class="crop-preview">
             <div class="canvas-wrapper">
               <canvas id="cropCanvas"></canvas>
               <div class="crop-overlay"></div>
             </div>
           </div>
+          <!-- Crop Controls -->
           <div class="crop-controls">
             <h3>Crop Settings</h3>
+            <!-- Aspect Ratio Controls -->
             <div class="aspect-ratio-controls">
               <h4>Aspect Ratio</h4>
               <button class="aspect-ratio-btn" data-ratio="free">
@@ -226,6 +250,7 @@
                 <span class="button_top">16:9</span>
               </button>
             </div>
+            <!-- Crop Action Buttons -->
             <div class="crop-actions">
               <button id="applyCrop" class="primary-btn">
                 <span class="button_top">Apply</span>
@@ -239,6 +264,10 @@
       </div>
     </div>
 
+    <!-- External Scripts
+         - Cropper.js for image cropping functionality
+         - Custom image editor implementation
+         - Main application logic -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="imageEditor.js"></script>
     <script src="main.js"></script>
