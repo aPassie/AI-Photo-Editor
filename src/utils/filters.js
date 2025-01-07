@@ -1,6 +1,25 @@
+/**
+ * Collection of image filter functions
+ * @module filters
+ */
+
+/**
+ * Object containing all available filter functions
+ * @type {Object.<string, function>}
+ */
 export const filters = {
+  /**
+   * No filter - returns original image
+   * @param {ImageData} imageData - The image data to process
+   * @returns {ImageData} Unmodified image data
+   */
   none: (imageData) => imageData,
   
+  /**
+   * Convert image to grayscale
+   * @param {ImageData} imageData - The image data to process
+   * @returns {ImageData} Grayscale image data
+   */
   grayscale: (imageData) => {
     const data = imageData.data;
     for (let i = 0; i < data.length; i += 4) {
@@ -10,6 +29,11 @@ export const filters = {
     return imageData;
   },
   
+  /**
+   * Apply sepia tone effect
+   * @param {ImageData} imageData - The image data to process
+   * @returns {ImageData} Sepia-toned image data
+   */
   sepia: (imageData) => {
     const data = imageData.data;
     for (let i = 0; i < data.length; i += 4) {
@@ -24,6 +48,11 @@ export const filters = {
     return imageData;
   },
   
+  /**
+   * Invert image colors
+   * @param {ImageData} imageData - The image data to process
+   * @returns {ImageData} Color-inverted image data
+   */
   invert: (imageData) => {
     const data = imageData.data;
     for (let i = 0; i < data.length; i += 4) {
@@ -34,6 +63,12 @@ export const filters = {
     return imageData;
   },
   
+  /**
+   * Apply Gaussian blur effect
+   * Uses a 3x3 convolution kernel
+   * @param {ImageData} imageData - The image data to process
+   * @returns {ImageData} Blurred image data
+   */
   blur: (imageData) => {
     const data = imageData.data;
     const width = imageData.width;

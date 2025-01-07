@@ -1,3 +1,6 @@
+/* Theme Variables - Light Mode
+ * Defines the color palette and visual properties for light theme
+ */
 :root {
   --primary: #2C2C2C;
   --primary-hover: #1A1A1A;
@@ -11,6 +14,9 @@
   --border-color: rgba(0, 0, 0, 0.12);
 }
 
+/* Theme Variables - Dark Mode
+ * Overrides the default theme variables for dark mode
+ */
 :root[data-theme="dark"] {
   --primary: #000000;
   --primary-hover: #1A1A1A;
@@ -24,6 +30,9 @@
   --border-color: rgba(255, 255, 255, 0.12);
 }
 
+/* Base Styles
+ * Sets up the fundamental page layout and typography
+ */
 body {
   margin: 0;
   min-width: 320px;
@@ -34,6 +43,9 @@ body {
   font-family: 'Satoshi', sans-serif;
 }
 
+/* Header Styles
+ * Defines the appearance of the main header bar
+ */
 .main-header {
   background: var(--primary);
   padding: 0.75rem 0;
@@ -51,6 +63,9 @@ body {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Button Styles
+ * Defines the interactive button components with hover effects
+ */
 .button {
   --main-focus: var(--accent);
   --font-color: var(--text);
@@ -71,6 +86,9 @@ body {
   box-shadow: 0 0 0 2px var(--main-color);
 }
 
+/* Button Animation States
+ * Controls the transitions and hover effects
+ */
 .button, .button__icon, .button__text {
   transition: all 0.3s;
 }
@@ -417,6 +435,9 @@ canvas {
   transition: all 0.3s ease;
 }
 
+/* Scrollbar Customization
+ * Defines custom scrollbar appearance for better UI integration
+ */
 ::-webkit-scrollbar {
   width: 8px;
 }

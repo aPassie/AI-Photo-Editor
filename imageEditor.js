@@ -1,4 +1,12 @@
+/**
+ * ImageEditor class provides a comprehensive set of image editing capabilities
+ * including filters, adjustments, cropping, and background removal.
+ */
 class ImageEditor {
+  /**
+   * Initialize the image editor with a canvas element
+   * @param {string} canvasId - The ID of the canvas element to use
+   */
   constructor(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext('2d', { willReadFrequently: true });
@@ -49,6 +57,10 @@ class ImageEditor {
     this.currentFilters = [];
   }
 
+  /**
+   * Handle keyboard shortcuts (e.g., Ctrl+Z for undo)
+   * @param {KeyboardEvent} e - The keyboard event
+   */
   handleKeyboard(e) {
     if (e.ctrlKey && e.key === 'z') {
       e.preventDefault();
@@ -56,6 +68,10 @@ class ImageEditor {
     }
   }
 
+  /**
+   * Save the current canvas state to history
+   * Maintains a maximum history size to prevent memory issues
+   */
   saveState() {
     const tempCanvas = document.createElement('canvas');
     tempCanvas.width = this.canvas.width;
@@ -74,6 +90,9 @@ class ImageEditor {
     }
   }
 
+  /**
+   * Restore the previous canvas state
+   */
   undo() {
     if (this.history.length === 0) return;
     
@@ -92,6 +111,10 @@ class ImageEditor {
     tempImage.src = lastState.imageData;
   }
 
+  /**
+   * Update the canvas with all current adjustments and filters
+   * Processes each pixel according to current adjustment settings
+   */
   updateCanvas() {
     if (!this.currentImage) return;
 
@@ -203,6 +226,13 @@ class ImageEditor {
     }
   }
 
+  /**
+   * Convert RGB color values to HSL color space
+   * @param {number} r - Red value (0-255)
+   * @param {number} g - Green value (0-255)
+   * @param {number} b - Blue value (0-255)
+   * @returns {Array} Array containing [hue, saturation, lightness]
+   */
   rgbToHsl(r, g, b) {
     r /= 255;
     g /= 255;
@@ -233,6 +263,13 @@ class ImageEditor {
     return [h, s, l];
   }
 
+  /**
+   * Convert HSL color values to RGB color space
+   * @param {number} h - Hue value (0-1)
+   * @param {number} s - Saturation value (0-1)
+   * @param {number} l - Lightness value (0-1)
+   * @returns {Array} Array containing [red, green, blue] values
+   */
   hslToRgb(h, s, l) {
     let r, g, b;
 
@@ -258,6 +295,11 @@ class ImageEditor {
     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
   }
 
+  /**
+   * Apply a single adjustment to the image
+   * @param {string} type - Type of adjustment (brightness, contrast, etc.)
+   * @param {number} value - Adjustment value
+   */
   applyAdjustment(type, value) {
     if (!this.currentImage) return;
 
@@ -266,6 +308,11 @@ class ImageEditor {
     this.applyAllEffects();
   }
 
+  /**
+   * Apply a filter to the image
+   * @param {string} filterName - Name of the filter to apply
+   * @param {number} intensity - Filter intensity (0-1)
+   */
   applyFilter(filterName, intensity = 1) {
     if (!this.currentImage) return;
 
@@ -334,6 +381,10 @@ class ImageEditor {
     this.saveState();
   }
 
+  /**
+   * Load a new image into the editor
+   * @param {HTMLImageElement} img - The image element to load
+   */
   loadImage(img) {
     this.originalImage = img;
     this.currentImage = img;
@@ -449,6 +500,10 @@ class ImageEditor {
     return blob;
   }
 
+  /**
+   * Remove the background from the current image using the remove.bg API
+   * @param {string} apiKey - The API key for remove.bg service
+   */
   async removeBackground(apiKey) {
     if (!this.currentImage) {
       alert('Please upload an image first');
@@ -654,6 +709,10 @@ class ImageEditor {
     img.src = this.canvas.toDataURL();
   }
 
+  /**
+   * Initialize the cropping interface
+   * Sets up Cropper.js instance for image cropping
+   */
   initCrop() {
     if (!this.currentImage) return;
 
@@ -724,6 +783,10 @@ class ImageEditor {
     tempImage.src = this.canvas.toDataURL();
   }
 
+  /**
+   * Rotate the image by specified degrees
+   * @param {number} degrees - Degrees to rotate (positive for clockwise)
+   */
   rotateImage(degrees) {
     if (!this.currentImage) {
       console.log('No current image loaded');
@@ -763,6 +826,10 @@ class ImageEditor {
     this.saveState();
   }
 
+  /**
+   * Flip the image horizontally or vertically
+   * @param {string} direction - 'horizontal' or 'vertical'
+   */
   flipImage(direction) {
     if (!this.currentImage) {
       console.log('No current image loaded');
@@ -797,6 +864,10 @@ class ImageEditor {
     this.saveState();
   }
 
+  /**
+   * Apply all current effects and filters to the image
+   * Called when multiple adjustments need to be reapplied
+   */
   applyAllEffects() {
     if (!this.currentImage) return;
 

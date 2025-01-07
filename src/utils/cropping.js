@@ -1,4 +1,17 @@
+/**
+ * Image cropping functionality
+ * @module cropping
+ */
+
+/**
+ * Class that handles image cropping operations
+ */
 export class CropTool {
+  /**
+   * Create a new CropTool instance
+   * @param {HTMLCanvasElement} canvas - The canvas element to crop
+   * @param {Function} onCropComplete - Callback function when cropping is complete
+   */
   constructor(canvas, onCropComplete) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
@@ -15,16 +28,26 @@ export class CropTool {
     this.setupEventListeners();
   }
   
+  /**
+   * Activate the crop tool and show the overlay
+   */
   activate() {
     this.isActive = true;
     this.createOverlay();
   }
   
+  /**
+   * Deactivate the crop tool and remove the overlay
+   */
   deactivate() {
     this.isActive = false;
     this.removeOverlay();
   }
   
+  /**
+   * Create the cropping overlay with handles
+   * @private
+   */
   createOverlay() {
     this.overlay = document.createElement('div');
     this.overlay.className = 'crop-overlay active';
@@ -42,12 +65,20 @@ export class CropTool {
     });
   }
   
+  /**
+   * Remove the cropping overlay
+   * @private
+   */
   removeOverlay() {
     if (this.overlay) {
       this.overlay.remove();
     }
   }
   
+  /**
+   * Set up mouse event listeners for cropping
+   * @private
+   */
   setupEventListeners() {
     this.overlay?.addEventListener('mousedown', this.startCrop.bind(this));
     document.addEventListener('mousemove', this.updateCrop.bind(this));

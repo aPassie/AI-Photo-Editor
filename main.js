@@ -1,5 +1,12 @@
+/**
+ * Global editor instance
+ * @type {ImageEditor}
+ */
 let editor;
 
+/**
+ * Initialize the application when DOM is fully loaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
   editor = new ImageEditor('canvas');
   setupEventListeners();
@@ -7,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeTheme();
 });
 
+/**
+ * Set up all event listeners for the application
+ * Handles image upload, filters, adjustments, and other editing operations
+ */
 function setupEventListeners() {
   const uploadBtn = document.getElementById('uploadBtn');
   const imageUpload = document.getElementById('imageUpload');
@@ -224,6 +235,9 @@ function setupEventListeners() {
   });
 }
 
+/**
+ * Initialize theme based on user preference or system settings
+ */
 function initializeTheme() {
   const themeToggle = document.getElementById('themeToggle').querySelector('input');
   
@@ -239,6 +253,11 @@ function initializeTheme() {
   });
 }
 
+/**
+ * Apply a specific filter with the given intensity value
+ * @param {string} filterName - Name of the filter to apply
+ * @param {number} value - Intensity value for the filter
+ */
 function applyFilter(filterName, value) {
   if (!editor.currentImage) {
     alert('Please upload an image first');
@@ -260,6 +279,9 @@ function applyFilter(filterName, value) {
   }
 }
 
+/**
+ * Update all slider values to their default states
+ */
 function updateSliderValues() {
   const sliders = document.querySelectorAll('input[type="range"]');
   sliders.forEach(slider => {
@@ -280,6 +302,10 @@ function updateSliderValues() {
   });
 }
 
+/**
+ * Update the selected filter in the UI
+ * @param {string} filterName - Name of the filter to select
+ */
 function updateFilterSelection(filterName) {
   document.querySelectorAll('.filter-option').forEach(option => {
     option.classList.toggle('active', option.dataset.filter === filterName);
